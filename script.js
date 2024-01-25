@@ -561,7 +561,7 @@ function renderPlayers() {
         yellowImage,
         players[i].x,
         players[i].y - 35,
-        players[i].size - 0.5,
+        players[i].size * 3.5,
         players[i].size * 2.5,
         );
     }
@@ -577,7 +577,7 @@ function renderPlayers() {
         greenImage,
         players[i].x,
         players[i].y - 35,
-        players[i].size - 0.5,
+        players[i].size * 3.5,,
         players[i].size * 2.5
       );
   }
