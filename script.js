@@ -25,7 +25,6 @@ var yellowImage = new Image();
 
 //Create a new Image object.
 yellowImage.onload = function () {
-
   //Draw the image onto the canvas.
   yellowPlayerReady = true;
 };
@@ -39,7 +38,6 @@ var greenImage = new Image();
 
 //Create a new Image object.
 greenImage.onload = function () {
-
   //Draw the image onto the canvas.
   greenPlayerReady = true;
 };
@@ -109,23 +107,16 @@ var goBack = function () {
 let time = 120;
 function onTimer() {
   showTime.style.display = "block";
+
   document.getElementById('timer').innerHTML = time;
   time--;
-
   if (time < 0) {
-    alert("Game Over");
+    alert("Game Over")
     location.reload(true);
-
-    // Display the winner based on scores
-    var finalResult = document.getElementById("finalResult");
-    if (blueteam > redteam) {
-      finalResult.innerHTML = "Blue Team Wins!";
-    } else if (blueteam < redteam) {
-      finalResult.innerHTML = "Red Team Wins!";
-    } else {
-      finalResult.innerHTML = "It's a Draw!";
-    }
-  } else {
+    document.getElementById("finalResult")
+    finalResult.innerHTML = "Blue Team: " + blueteam + " Red Team: " + redteam;
+  }
+  else {
     setTimeout(onTimer, 1000);
   }
 }
@@ -361,26 +352,24 @@ const ballBounds = async () => {
 
 function playersBounds() {
   for (let i = 0; i < 4; i++) {
-    if (players[i].x - players[i].size < 0) {
-      players[i].x = players[i].size;
-      players[i].xVel = 0;
-    }
     if (players[i].x + players[i].size > canvas.width) {
       players[i].x = canvas.width - players[i].size;
-      players[i].xVel = 0;
+      players[i].xVel *= -0.2;
     }
-    if (players[i].y - players[i].size < 0) {
-      players[i].y = players[i].size;
-      players[i].yVel = 0;
+    if (players[i].x - players[i].size < 0) {
+      players[i].x = 0 + players[i].size;
+      players[i].xVel *= -0.2;
     }
     if (players[i].y + players[i].size > canvas.height) {
       players[i].y = canvas.height - players[i].size;
-      players[i].yVel = 0;
+      players[i].yVel *= -0.2;
+    }
+    if (players[i].y - players[i].size < 0) {
+      players[i].y = 0 + players[i].size;
+      players[i].yVel *= -0.2;
     }
   }
 }
-
-
 
 // Moves Functions
 
@@ -418,13 +407,7 @@ function movePlayers() {
 function keyboardMoves() {
   var dx = (players[0].x - ball.x) / players[0].size;
   var dy = (players[0].y - ball.y) / players[0].size;
-
-  if (shoot) {
-    playerShoot();
-    // Reset the shoot variable to prevent continuous shooting
-    shoot = false;
-  }
-
+  
   function playerShoot() {
     ball.xVel = (7 / 2) * -dx;
     ball.yVel = (7 / 2) * -dy;
@@ -578,7 +561,7 @@ function renderPlayers() {
         yellowImage,
         players[i].x,
         players[i].y - 35,
-        players[i].size * 3.5,
+        players[i].size - 0.5,
         players[i].size * 2.5,
         );
     }
@@ -594,7 +577,7 @@ function renderPlayers() {
         greenImage,
         players[i].x,
         players[i].y - 35,
-        players[i].size * 3.5,
+        players[i].size - 0.5,
         players[i].size * 2.5
       );
   }
